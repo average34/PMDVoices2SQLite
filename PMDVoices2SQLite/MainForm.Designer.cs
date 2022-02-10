@@ -33,8 +33,8 @@
             this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mMLファイルを開くOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mMLファイルを保存SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,16 +83,17 @@
             this.mMLファイルを保存SToolStripMenuItem.Size = new System.Drawing.Size(276, 26);
             this.mMLファイルを保存SToolStripMenuItem.Text = "MMLファイルを保存(&S)";
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(273, 6);
+            // 
             // 終了XToolStripMenuItem
             // 
             this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
             this.終了XToolStripMenuItem.Size = new System.Drawing.Size(276, 26);
             this.終了XToolStripMenuItem.Text = "終了(&X)";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(273, 6);
+            this.終了XToolStripMenuItem.Click += new System.EventHandler(this.終了XToolStripMenuItem_Click);
             // 
             // MainForm
             // 

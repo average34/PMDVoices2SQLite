@@ -12,5 +12,9 @@ namespace PMDVoices2SQLite
 
         }
 
+        private void èIóπXToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
     }
 }
