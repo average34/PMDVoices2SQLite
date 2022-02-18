@@ -1,93 +1,137 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace PMDVoices2SQLite
 {
     /// <summary>
-    /// PMDの1つの音色を扱うレコード
+    /// PMDの1つの音色を扱うレコード（エンティティ）
     /// </summary>
     [Serializable]
     public record PMDVoice
     {
         /// <summary>
+        /// 主キー（プライマリキー）
+        /// </summary>
+        [Key]
+        public int PMDVoiceID { get; set; }
+        /// <summary>
         /// 音色番号
         /// 0-255
         /// </summary>
-        public byte NM = 0;
+        [Required]
+        public byte NM { get; set; } = 0;
         /// <summary>
         /// アルゴリズム
         /// 0-7
         /// </summary>
-        public byte ALG = 0;
+        [Required]
+        public byte ALG { get; set; } = 0;
         /// <summary>
         /// フィードバック
         /// 0-7
         /// </summary>
-        public byte FBL = 0;
+        [Required]
+        public byte FBL { get; set; } = 0;
 
         /// <summary>
         /// Attack Rate	0～31
         /// </summary>
-        public byte AR1 = 31, AR2 = 31, AR3 = 31, AR4 = 31;
+        public byte AR1 { get; set; } = 31;
+        public byte AR2 { get; set; } = 31;
+        public byte AR3 { get; set; } = 31;
+        public byte AR4 { get; set; } = 31;
         /// <summary>
         /// Decay Rate	0～31
         /// </summary>
-        public byte DR1 = 0, DR2 = 0, DR3 = 0, DR4 = 0;
+        public byte DR1 { get; set; } = 0;
+        public byte DR2 { get; set; } = 0;
+        public byte DR3 { get; set; } = 0;
+        public byte DR4 { get; set; } = 0;
         /// <summary>
         /// Sustain Rate	0～31
         /// </summary>
-        public byte SR1 = 0, SR2 = 0, SR3 = 0, SR4 = 0;
+        public byte SR1 { get; set; } = 0;
+        public byte SR2 { get; set; } = 0;
+        public byte SR3 { get; set; } = 0;
+        public byte SR4 { get; set; } = 0;
         /// <summary>
         /// Release Rate	0～15
         /// </summary>
-        public byte RR1 = 15, RR2 = 15, RR3 = 15, RR4 = 15;
+        public byte RR1 { get; set; } = 15;
+        public byte RR2 { get; set; } = 15;
+        public byte RR3 { get; set; } = 15;
+        public byte RR4 { get; set; } = 15;
         /// <summary>
         /// Sustain Level	0～15
         /// </summary>
-        public byte SL1 = 0, SL2 = 0, SL3 = 0, SL4 = 0;
+        public byte SL1 { get; set; } = 0;
+        public byte SL2 { get; set; } = 0;
+        public byte SL3 { get; set; } = 0;
+        public byte SL4 { get; set; } = 0;
 
         /// <summary>
         /// Total Level	0～127
         /// </summary>
-        public byte TL1 = 0, TL2 = 0, TL3 = 0, TL4 = 0;
+        public byte TL1 { get; set; } = 0;
+        public byte TL2 { get; set; } = 0;
+        public byte TL3 { get; set; } = 0;
+        public byte TL4 { get; set; } = 0;
 
         /// <summary>
         /// Key Scale	0～3
         /// </summary>
-        public byte KS1 = 0, KS2 = 0, KS3 = 0, KS4 = 0;
+        public byte KS1 { get; set; } = 0;
+        public byte KS2 { get; set; } = 0;
+        public byte KS3 { get; set; } = 0;
+        public byte KS4 { get; set; } = 0;
 
         /// <summary>
         /// Multiple	0～15
         /// </summary>
-        public byte ML1 = 0, ML2 = 0, ML3 = 0, ML4 = 0;
+        public byte ML1 { get; set; } = 0;
+        public byte ML2 { get; set; } = 0;
+        public byte ML3 { get; set; } = 0;
+        public byte ML4 { get; set; } = 0;
 
         /// <summary>
         /// Detune	0～7 (または -3～3)
         /// </summary>
-        public byte DT1 = 0, DT2 = 0, DT3 = 0, DT4 = 0;
+        public byte DT1 { get; set; } = 0;
+        public byte DT2 { get; set; } = 0;
+        public byte DT3 { get; set; } = 0;
+        public byte DT4 { get; set; } = 0;
 
         /// <summary>
         /// Detune2	0～3
         /// </summary>
-        public byte DT2_1 = 0, DT2_2 = 0, DT2_3 = 0, DT2_4 = 0;
+        public byte DT2_1 { get; set; } = 0;
+        public byte DT2_2 { get; set; } = 0;
+        public byte DT2_3 { get; set; } = 0;
+        public byte DT2_4 { get; set; } = 0;
+
         /// <summary>
         /// AMS Enable	0～1
         /// </summary>
-        public byte AMS1 = 0, AMS2 = 0, AMS3 = 0, AMS4 = 0;
+        public byte AMS1 { get; set; } = 0;
+        public byte AMS2 { get; set; } = 0;
+        public byte AMS3 { get; set; } = 0;
+        public byte AMS4 { get; set; } = 0;
 
         /// <summary>
         /// MMLファイルの名前です。
         /// </summary>
-        public string? MMLFileName = "None";
+        public string? MMLFileName { get; set; } = "None";
         /// <summary>
         /// nm alg fbl の値を入力した右側の位置に存在するコメントです。
         /// = または ; から始まります。
         /// </summary>
-        public string? Comment = "";
+        public string? Comment { get; set; } = "";
 
 
         public PMDVoice()
@@ -204,6 +248,7 @@ namespace PMDVoices2SQLite
     public static class PMDVoiceMethod
     {
 
+
         /// <summary>
         /// MMLの音色定義からデータを抽出する
         /// </summary>
@@ -238,41 +283,56 @@ namespace PMDVoices2SQLite
 
             foreach (var index in atmarkIndex)
             {
-                PMDVoice voice = new();
                 if (!lines[index].StartsWith('@')) throw new ArgumentException();
                 string[]? nmAlgFblComment = lines[index].Split(' ', StringSplitOptions.None);
 
                 if (!nmAlgFblComment.Any() || nmAlgFblComment.Length < 3) throw new ArgumentException();
 
-                _ = byte.TryParse(Regex.Replace(nmAlgFblComment[0], @"[^0-9]", ""), out voice.NM);
-                _ = byte.TryParse(Regex.Replace(nmAlgFblComment[1], @"[^0-9]", ""), out voice.ALG);
-                _ = byte.TryParse(Regex.Replace(nmAlgFblComment[2], @"[^0-9]", ""), out voice.FBL);
+                //2行目
+                string comment = "";
+                _ = byte.TryParse(Regex.Replace(nmAlgFblComment[0], @"[^0-9]", ""), out byte NM);
+                _ = byte.TryParse(Regex.Replace(nmAlgFblComment[1], @"[^0-9]", ""), out byte ALG);
+                _ = byte.TryParse(Regex.Replace(nmAlgFblComment[2], @"[^0-9]", ""), out byte FBL);
 
                 //PMDVoice.Commentの代入
                 if (Array.IndexOf(nmAlgFblComment, 3) > -1)
                 {
                     if (nmAlgFblComment[3].Contains('='))
                     {
-                        voice.Comment = nmAlgFblComment[3].Substring(nmAlgFblComment[3].IndexOf("="));
+                        comment = nmAlgFblComment[3].Substring(nmAlgFblComment[3].IndexOf("="));
                     }
                     else if (nmAlgFblComment[3].Contains(';'))
                     {
-                        voice.Comment = nmAlgFblComment[3].Substring(nmAlgFblComment[3].IndexOf(";"));
+                        comment = nmAlgFblComment[3].Substring(nmAlgFblComment[3].IndexOf(";"));
                     }
                 }
                 else if (nmAlgFblComment[2].Length >= 4)
                 {
                     if (nmAlgFblComment[2].Contains('='))
                     {
-                        voice.Comment = nmAlgFblComment[2].Substring(nmAlgFblComment[2].IndexOf("="));
+                        comment = nmAlgFblComment[2].Substring(nmAlgFblComment[2].IndexOf("="));
                     }
                     else if (nmAlgFblComment[2].Contains(';'))
                     {
-                        voice.Comment = nmAlgFblComment[2].Substring(nmAlgFblComment[2].IndexOf(";"));
+                        comment = nmAlgFblComment[2].Substring(nmAlgFblComment[2].IndexOf(";"));
                     }
                 }
 
                 //AR1以降
+
+
+                byte AR1 = 31, AR2 = 31, AR3 = 31, AR4 = 31;
+                byte DR1 = 0, DR2 = 0, DR3 = 0, DR4 = 0;
+                byte SR1 = 0, SR2 = 0, SR3 = 0, SR4 = 0;
+                byte RR1 = 15, RR2 = 15, RR3 = 15, RR4 = 15;
+                byte SL1 = 0, SL2 = 0, SL3 = 0, SL4 = 0;
+                byte TL1 = 0, TL2 = 0, TL3 = 0, TL4 = 0;
+                byte KS1 = 0, KS2 = 0, KS3 = 0, KS4 = 0;
+                byte ML1 = 0, ML2 = 0, ML3 = 0, ML4 = 0;
+                byte DT1 = 0, DT2 = 0, DT3 = 0, DT4 = 0;
+                byte DT2_1 = 0, DT2_2 = 0, DT2_3 = 0, DT2_4 = 0;
+                byte AMS1 = 0, AMS2 = 0, AMS3 = 0, AMS4 = 0;
+
 
                 byte countModule = 0;
                 byte countLinesPlus = 0;
@@ -291,74 +351,74 @@ namespace PMDVoices2SQLite
                             case 0:
                                 if (nmAlgFblCommentNext.Length == 11)
                                 {
-                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out voice.DT2_1);
-                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[10], @"[^0-9]", ""), out voice.AMS1);
+                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out DT2_1);
+                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[10], @"[^0-9]", ""), out AMS1);
                                 }
                                 else
-                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out voice.AMS1);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[0], @"[^0-9]", ""), out voice.AR1);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[1], @"[^0-9]", ""), out voice.DR1);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[2], @"[^0-9]", ""), out voice.SR1);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[3], @"[^0-9]", ""), out voice.RR1);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[4], @"[^0-9]", ""), out voice.SL1);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[5], @"[^0-9]", ""), out voice.TL1);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[6], @"[^0-9]", ""), out voice.KS1);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[7], @"[^0-9]", ""), out voice.ML1);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[8], @"[^0-9]", ""), out voice.DT1);
+                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out AMS1);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[0], @"[^0-9]", ""), out AR1);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[1], @"[^0-9]", ""), out DR1);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[2], @"[^0-9]", ""), out SR1);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[3], @"[^0-9]", ""), out RR1);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[4], @"[^0-9]", ""), out SL1);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[5], @"[^0-9]", ""), out TL1);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[6], @"[^0-9]", ""), out KS1);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[7], @"[^0-9]", ""), out ML1);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[8], @"[^0-9]", ""), out DT1);
                                 break;
                             case 1:
                                 if (nmAlgFblCommentNext.Length == 11)
                                 {
-                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out voice.DT2_2);
-                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[10], @"[^0-9]", ""), out voice.AMS2);
+                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out DT2_2);
+                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[10], @"[^0-9]", ""), out AMS2);
                                 }
                                 else
-                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out voice.AMS2);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[0], @"[^0-9]", ""), out voice.AR1);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[1], @"[^0-9]", ""), out voice.DR2);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[2], @"[^0-9]", ""), out voice.SR2);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[3], @"[^0-9]", ""), out voice.RR2);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[4], @"[^0-9]", ""), out voice.SL2);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[5], @"[^0-9]", ""), out voice.TL2);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[6], @"[^0-9]", ""), out voice.KS2);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[7], @"[^0-9]", ""), out voice.ML2);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[8], @"[^0-9]", ""), out voice.DT2);
+                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out AMS2);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[0], @"[^0-9]", ""), out AR2);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[1], @"[^0-9]", ""), out DR2);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[2], @"[^0-9]", ""), out SR2);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[3], @"[^0-9]", ""), out RR2);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[4], @"[^0-9]", ""), out SL2);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[5], @"[^0-9]", ""), out TL2);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[6], @"[^0-9]", ""), out KS2);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[7], @"[^0-9]", ""), out ML2);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[8], @"[^0-9]", ""), out DT2);
                                 break;
                             case 2:
                                 if (nmAlgFblCommentNext.Length == 11)
                                 {
-                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out voice.DT2_3);
-                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[10], @"[^0-9]", ""), out voice.AMS3);
+                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out DT2_3);
+                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[10], @"[^0-9]", ""), out AMS3);
                                 }
                                 else
-                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out voice.AMS3);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[0], @"[^0-9]", ""), out voice.AR1);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[1], @"[^0-9]", ""), out voice.DR3);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[2], @"[^0-9]", ""), out voice.SR3);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[3], @"[^0-9]", ""), out voice.RR3);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[4], @"[^0-9]", ""), out voice.SL3);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[5], @"[^0-9]", ""), out voice.TL3);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[6], @"[^0-9]", ""), out voice.KS3);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[7], @"[^0-9]", ""), out voice.ML3);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[8], @"[^0-9]", ""), out voice.DT3);
+                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out AMS3);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[0], @"[^0-9]", ""), out AR3);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[1], @"[^0-9]", ""), out DR3);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[2], @"[^0-9]", ""), out SR3);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[3], @"[^0-9]", ""), out RR3);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[4], @"[^0-9]", ""), out SL3);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[5], @"[^0-9]", ""), out TL3);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[6], @"[^0-9]", ""), out KS3);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[7], @"[^0-9]", ""), out ML3);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[8], @"[^0-9]", ""), out DT3);
                                 break;
                             case 3:
                                 if (nmAlgFblCommentNext.Length == 11)
                                 {
-                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out voice.DT2_4);
-                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[10], @"[^0-9]", ""), out voice.AMS4);
+                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out DT2_4);
+                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[10], @"[^0-9]", ""), out AMS4);
                                 }
                                 else
-                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out voice.AMS4);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[0], @"[^0-9]", ""), out voice.AR1);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[1], @"[^0-9]", ""), out voice.DR4);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[2], @"[^0-9]", ""), out voice.SR4);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[3], @"[^0-9]", ""), out voice.RR4);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[4], @"[^0-9]", ""), out voice.SL4);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[5], @"[^0-9]", ""), out voice.TL4);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[6], @"[^0-9]", ""), out voice.KS4);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[7], @"[^0-9]", ""), out voice.ML4);
-                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[8], @"[^0-9]", ""), out voice.DT4);
+                                    _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out AMS4);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[0], @"[^0-9]", ""), out AR4);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[1], @"[^0-9]", ""), out DR4);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[2], @"[^0-9]", ""), out SR4);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[3], @"[^0-9]", ""), out RR4);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[4], @"[^0-9]", ""), out SL4);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[5], @"[^0-9]", ""), out TL4);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[6], @"[^0-9]", ""), out KS4);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[7], @"[^0-9]", ""), out ML4);
+                                _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[8], @"[^0-9]", ""), out DT4);
                                 break;
                             default:
                                 break;
@@ -370,6 +430,20 @@ namespace PMDVoices2SQLite
                         continue;
                     }
                 }
+
+                PMDVoice voice = new(NM, ALG, FBL,
+                    AR1, AR2, AR3, AR4,
+                    DR1, DR2, DR3, DR4,
+                    SR1, SR2, SR3, SR4,
+                    RR1, RR2, RR3, RR4,
+                    SL1, SL2, SL3, SL4,
+                    TL1, TL2, TL3, TL4,
+                    KS1, KS2, KS3, KS4,
+                    ML1, ML2, ML3, ML4,
+                    DT1, DT2, DT3, DT4,
+                    DT2_1, DT2_2, DT2_3, DT2_4,
+                    AMS1, AMS2, AMS3, AMS4,
+                    "None", comment);
                 voicesList.Add(voice);
             }
 
@@ -378,13 +452,62 @@ namespace PMDVoices2SQLite
             return voicesList;
         }
 
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="voice"></param>
+        /// <param name="is3digits"></param>
+        /// <param name="isExistDT2"></param>
+        /// <returns></returns>
+        public static string ToMML(this PMDVoice voice, bool is3digits = false, bool isExistDT2 = false)
+        {
+            string format;
+            string returnMML = $"; NM ALG FBL{Environment.NewLine}@";
+
+            if (is3digits) format = "D3";
+            else format = "D";
+
+            //2行目
+            returnMML += $"{voice.NM.ToString(format)} {voice.ALG.ToString(format)} {voice.FBL.ToString(format)} ";
+            if (string.IsNullOrEmpty(voice.Comment)) { }
+            else if (voice.Comment.StartsWith('=') || voice.Comment.StartsWith(';'))
+                returnMML += voice.Comment;
+            else
+                returnMML += "= " + voice.Comment;
+            returnMML += Environment.NewLine;
+
+            //3行目
+            if (isExistDT2)
+                returnMML += $"; AR  DR  SR  RR  SL  TL  KS  ML  DT DT2 AMS{Environment.NewLine}";
+            else
+                returnMML += $"; AR  DR  SR  RR  SL  TL  KS  ML  DT AMS{Environment.NewLine}";
+
+            //4-7行目
+            if (isExistDT2)
+            {
+                returnMML += $" {voice.AR1.ToString(format)} {voice.DR1.ToString(format)} {voice.SR1.ToString(format)} {voice.RR1.ToString(format)} {voice.SL1.ToString(format)} {voice.TL1.ToString(format)} {voice.KS1.ToString(format)} {voice.ML1.ToString(format)} {voice.DT1.ToString(format)} {voice.DT2_1.ToString(format)} {voice.AMS1.ToString(format)} {Environment.NewLine}";
+                returnMML += $" {voice.AR2.ToString(format)} {voice.DR2.ToString(format)} {voice.SR2.ToString(format)} {voice.RR2.ToString(format)} {voice.SL2.ToString(format)} {voice.TL2.ToString(format)} {voice.KS2.ToString(format)} {voice.ML2.ToString(format)} {voice.DT2.ToString(format)} {voice.DT2_2.ToString(format)}  {voice.AMS2.ToString(format)} {Environment.NewLine}";
+                returnMML += $" {voice.AR3.ToString(format)} {voice.DR3.ToString(format)} {voice.SR3.ToString(format)} {voice.RR3.ToString(format)} {voice.SL3.ToString(format)} {voice.TL3.ToString(format)} {voice.KS3.ToString(format)} {voice.ML3.ToString(format)} {voice.DT3.ToString(format)} {voice.DT2_3.ToString(format)}  {voice.AMS3.ToString(format)} {Environment.NewLine}";
+                returnMML += $" {voice.AR4.ToString(format)} {voice.DR4.ToString(format)} {voice.SR4.ToString(format)} {voice.RR4.ToString(format)} {voice.SL4.ToString(format)} {voice.TL4.ToString(format)} {voice.KS4.ToString(format)} {voice.ML4.ToString(format)} {voice.DT4.ToString(format)} {voice.DT2_4.ToString(format)}  {voice.AMS4.ToString(format)} {Environment.NewLine}";
+            }
+            else
+            {
+                returnMML += $" {voice.AR1.ToString(format)} {voice.DR1.ToString(format)} {voice.SR1.ToString(format)} {voice.RR1.ToString(format)} {voice.SL1.ToString(format)} {voice.TL1.ToString(format)} {voice.KS1.ToString(format)} {voice.ML1.ToString(format)} {voice.DT1.ToString(format)} {voice.AMS1.ToString(format)} {Environment.NewLine}";
+                returnMML += $" {voice.AR2.ToString(format)} {voice.DR2.ToString(format)} {voice.SR2.ToString(format)} {voice.RR2.ToString(format)} {voice.SL2.ToString(format)} {voice.TL2.ToString(format)} {voice.KS2.ToString(format)} {voice.ML2.ToString(format)} {voice.DT2.ToString(format)} {voice.AMS2.ToString(format)} {Environment.NewLine}";
+                returnMML += $" {voice.AR3.ToString(format)} {voice.DR3.ToString(format)} {voice.SR3.ToString(format)} {voice.RR3.ToString(format)} {voice.SL3.ToString(format)} {voice.TL3.ToString(format)} {voice.KS3.ToString(format)} {voice.ML3.ToString(format)} {voice.DT3.ToString(format)} {voice.AMS3.ToString(format)} {Environment.NewLine}";
+                returnMML += $" {voice.AR4.ToString(format)} {voice.DR4.ToString(format)} {voice.SR4.ToString(format)} {voice.RR4.ToString(format)} {voice.SL4.ToString(format)} {voice.TL4.ToString(format)} {voice.KS4.ToString(format)} {voice.ML4.ToString(format)} {voice.DT4.ToString(format)} {voice.AMS4.ToString(format)} {Environment.NewLine}";
+            }
+
+            return returnMML;
+
+        }
 
     }
 
 
 
-    #region 資料 PMDMML.MANより
+    #region 資料 PMDMML.MANより 引用
     //    §3-1	FM音色定義
     //	@
     //-------------------------------------------------------------------------------
