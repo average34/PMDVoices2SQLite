@@ -337,7 +337,74 @@ namespace PMDVoices2SQLite
                    AMS4 == voice.AMS4;
         }
 
+        /// <summary>
+        /// 2つの音色の距離
+        /// </summary>
+        /// <param name="voice">音色2</param>
+        /// <returns>差(0以上)</returns>
+        public int CoreDistance(PMDVoiceCore voice)
+        {
+            return CoreDistance(this,voice);
+        }
 
+        /// <summary>
+        /// 2つの音色の距離
+        /// </summary>
+        /// <param name="voice1">音色1</param>
+        /// <param name="voice2">音色2</param>
+        /// <returns>差(0以上)</returns>
+        public static int CoreDistance(PMDVoiceCore voice1, PMDVoiceCore voice2)
+        {
+            int ret = 0;
+            if (voice2.ALG != voice1.ALG) ret += 10000000;
+            ret += Math.Abs(voice2.FBL - voice1.FBL) * 10;
+            ret += Math.Abs(voice2.AR1 - voice1.AR1);
+            ret += Math.Abs(voice2.AR2 - voice1.AR2);
+            ret += Math.Abs(voice2.AR3 - voice1.AR3);
+            ret += Math.Abs(voice2.AR4 - voice1.AR4);
+            ret += Math.Abs(voice2.DR1 - voice1.DR1);
+            ret += Math.Abs(voice2.DR2 - voice1.DR2);
+            ret += Math.Abs(voice2.DR3 - voice1.DR3);
+            ret += Math.Abs(voice2.DR4 - voice1.DR4);
+            ret += Math.Abs(voice2.SR1 - voice1.SR1);
+            ret += Math.Abs(voice2.SR2 - voice1.SR2);
+            ret += Math.Abs(voice2.SR3 - voice1.SR3);
+            ret += Math.Abs(voice2.SR4 - voice1.SR4);
+            ret += Math.Abs(voice2.RR1 - voice1.RR1);
+            ret += Math.Abs(voice2.RR2 - voice1.RR2);
+            ret += Math.Abs(voice2.RR3 - voice1.RR3);
+            ret += Math.Abs(voice2.RR4 - voice1.RR4);
+            ret += Math.Abs(voice2.SL1 - voice1.SL1);
+            ret += Math.Abs(voice2.SL2 - voice1.SL2);
+            ret += Math.Abs(voice2.SL3 - voice1.SL3);
+            ret += Math.Abs(voice2.SL4 - voice1.SL4);
+            ret += Math.Abs(voice2.TL1 - voice1.TL1);
+            ret += Math.Abs(voice2.TL2 - voice1.TL2);
+            ret += Math.Abs(voice2.TL3 - voice1.TL3);
+            ret += Math.Abs(voice2.TL4 - voice1.TL4);
+            ret += Math.Abs(voice2.KS1 - voice1.KS1);
+            ret += Math.Abs(voice2.KS2 - voice1.KS2);
+            ret += Math.Abs(voice2.KS3 - voice1.KS3);
+            ret += Math.Abs(voice2.KS4 - voice1.KS4);
+            ret += Math.Abs(voice2.ML1 - voice1.ML1) * 10;
+            ret += Math.Abs(voice2.ML2 - voice1.ML2) * 10;
+            ret += Math.Abs(voice2.ML3 - voice1.ML3) * 10;
+            ret += Math.Abs(voice2.ML4 - voice1.ML4) * 10;
+            ret += Math.Abs(voice2.DT1 - voice1.DT1);
+            ret += Math.Abs(voice2.DT2 - voice1.DT2);
+            ret += Math.Abs(voice2.DT3 - voice1.DT3);
+            ret += Math.Abs(voice2.DT4 - voice1.DT4);
+            ret += Math.Abs(voice2.DT2_1 - voice1.DT2_1);
+            ret += Math.Abs(voice2.DT2_2 - voice1.DT2_2);
+            ret += Math.Abs(voice2.DT2_3 - voice1.DT2_3);
+            ret += Math.Abs(voice2.DT2_4 - voice1.DT2_4);
+            ret += Math.Abs(voice2.AMS1 - voice1.AMS1);
+            ret += Math.Abs(voice2.AMS2 - voice1.AMS2);
+            ret += Math.Abs(voice2.AMS3 - voice1.AMS3);
+            ret += Math.Abs(voice2.AMS4 - voice1.AMS4);
+
+            return ret;
+        }
         #endregion
     }
 
