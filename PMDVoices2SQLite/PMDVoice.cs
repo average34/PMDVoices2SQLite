@@ -13,127 +13,27 @@ namespace PMDVoices2SQLite
     /// PMDの1つの音色を扱うレコード（エンティティ）
     /// </summary>
     [Serializable]
-    public record PMDVoice
+    public record PMDVoice : PMDVoiceCore
     {
+        #region プロパティ
         /// <summary>
         /// 主キー（プライマリキー）
         /// </summary>
         [Key]
         public int PMDVoiceID { get; set; }
         /// <summary>
-        /// 音色番号
-        /// 0-255
-        /// </summary>
-        [Required]
-        public byte NM { get; set; } = 0;
-        /// <summary>
-        /// アルゴリズム
-        /// 0-7
-        /// </summary>
-        [Required]
-        public byte ALG { get; set; } = 0;
-        /// <summary>
-        /// フィードバック
-        /// 0-7
-        /// </summary>
-        [Required]
-        public byte FBL { get; set; } = 0;
-
-        /// <summary>
-        /// Attack Rate	0～31
-        /// </summary>
-        public byte AR1 { get; set; } = 31;
-        public byte AR2 { get; set; } = 31;
-        public byte AR3 { get; set; } = 31;
-        public byte AR4 { get; set; } = 31;
-        /// <summary>
-        /// Decay Rate	0～31
-        /// </summary>
-        public byte DR1 { get; set; } = 0;
-        public byte DR2 { get; set; } = 0;
-        public byte DR3 { get; set; } = 0;
-        public byte DR4 { get; set; } = 0;
-        /// <summary>
-        /// Sustain Rate	0～31
-        /// </summary>
-        public byte SR1 { get; set; } = 0;
-        public byte SR2 { get; set; } = 0;
-        public byte SR3 { get; set; } = 0;
-        public byte SR4 { get; set; } = 0;
-        /// <summary>
-        /// Release Rate	0～15
-        /// </summary>
-        public byte RR1 { get; set; } = 15;
-        public byte RR2 { get; set; } = 15;
-        public byte RR3 { get; set; } = 15;
-        public byte RR4 { get; set; } = 15;
-        /// <summary>
-        /// Sustain Level	0～15
-        /// </summary>
-        public byte SL1 { get; set; } = 0;
-        public byte SL2 { get; set; } = 0;
-        public byte SL3 { get; set; } = 0;
-        public byte SL4 { get; set; } = 0;
-
-        /// <summary>
-        /// Total Level	0～127
-        /// </summary>
-        public byte TL1 { get; set; } = 0;
-        public byte TL2 { get; set; } = 0;
-        public byte TL3 { get; set; } = 0;
-        public byte TL4 { get; set; } = 0;
-
-        /// <summary>
-        /// Key Scale	0～3
-        /// </summary>
-        public byte KS1 { get; set; } = 0;
-        public byte KS2 { get; set; } = 0;
-        public byte KS3 { get; set; } = 0;
-        public byte KS4 { get; set; } = 0;
-
-        /// <summary>
-        /// Multiple	0～15
-        /// </summary>
-        public byte ML1 { get; set; } = 0;
-        public byte ML2 { get; set; } = 0;
-        public byte ML3 { get; set; } = 0;
-        public byte ML4 { get; set; } = 0;
-
-        /// <summary>
-        /// Detune	0～7 (または -3～3)
-        /// </summary>
-        public byte DT1 { get; set; } = 0;
-        public byte DT2 { get; set; } = 0;
-        public byte DT3 { get; set; } = 0;
-        public byte DT4 { get; set; } = 0;
-
-        /// <summary>
-        /// Detune2	0～3
-        /// </summary>
-        public byte DT2_1 { get; set; } = 0;
-        public byte DT2_2 { get; set; } = 0;
-        public byte DT2_3 { get; set; } = 0;
-        public byte DT2_4 { get; set; } = 0;
-
-        /// <summary>
-        /// AMS Enable	0～1
-        /// </summary>
-        public byte AMS1 { get; set; } = 0;
-        public byte AMS2 { get; set; } = 0;
-        public byte AMS3 { get; set; } = 0;
-        public byte AMS4 { get; set; } = 0;
-
-        /// <summary>
         /// MMLファイルの名前です。
         /// </summary>
         public string? MMLFileName { get; set; } = "None";
         /// <summary>
-        /// nm alg fbl の値を入力した右側の位置に存在するコメントです。
+        /// NM ALG FBL の値を入力した右側の位置に存在するコメントです。
         /// = または ; から始まります。
         /// </summary>
         public string? Comment { get; set; } = "";
 
+        #endregion
 
+        #region コンストラクタ
         public PMDVoice()
         {
         }
@@ -240,6 +140,16 @@ namespace PMDVoices2SQLite
             MMLFileName = mMLFileName;
             Comment = comment;
         }
+        #endregion
+
+
+
+
+        #region メソッド
+
+        #endregion
+
+
     }
 
     /// <summary>
@@ -255,7 +165,7 @@ namespace PMDVoices2SQLite
         /// <param name="pmdVoiceText">MMLの音色定義のテキストデータ</param>
         /// <returns>抽出したデータ</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static IEnumerable<PMDVoice> VoiceParser(string pmdVoiceText)
+        public static IEnumerable<PMDVoice> VoiceParser(string pmdVoiceText, string fileName = "")
         {
 
             if (string.IsNullOrEmpty(pmdVoiceText))
@@ -284,18 +194,23 @@ namespace PMDVoices2SQLite
             foreach (var index in atmarkIndex)
             {
                 if (!lines[index].StartsWith('@')) throw new ArgumentException();
-                string[]? nmAlgFblComment = lines[index].Split(' ', StringSplitOptions.None);
-
-                if (!nmAlgFblComment.Any() || nmAlgFblComment.Length < 3) throw new ArgumentException();
+                // 空要素を削除
+                var nmAlgFblComment = lines[index].Split(' ', StringSplitOptions.None).ToList();
+                nmAlgFblComment.RemoveAll(s => string.IsNullOrEmpty(s) || string.IsNullOrWhiteSpace(s));
+                if (!nmAlgFblComment.Any() || nmAlgFblComment.Count < 3)
+                {
+                    throw new ArgumentException("nmAlgFblComment");
+                }
 
                 //2行目
                 string comment = "";
                 _ = byte.TryParse(Regex.Replace(nmAlgFblComment[0], @"[^0-9]", ""), out byte NM);
                 _ = byte.TryParse(Regex.Replace(nmAlgFblComment[1], @"[^0-9]", ""), out byte ALG);
-                _ = byte.TryParse(Regex.Replace(nmAlgFblComment[2], @"[^0-9]", ""), out byte FBL);
+                byte FBL;
 
-                //PMDVoice.Commentの代入
-                if (Array.IndexOf(nmAlgFblComment, 3) > -1)
+                //PMDVoice.FBLとCommentの代入
+                //4つ目の配列がある場合
+                if (nmAlgFblComment.Count >= 4)
                 {
                     if (nmAlgFblComment[3].Contains('='))
                     {
@@ -305,18 +220,32 @@ namespace PMDVoices2SQLite
                     {
                         comment = nmAlgFblComment[3].Substring(nmAlgFblComment[3].IndexOf(";"));
                     }
+                    _ = byte.TryParse(Regex.Replace(nmAlgFblComment[2], @"[^0-9]", ""), out FBL);
+
                 }
+                //3つ目の配列が長い場合
                 else if (nmAlgFblComment[2].Length >= 4)
                 {
+                    string strFBL;
                     if (nmAlgFblComment[2].Contains('='))
                     {
                         comment = nmAlgFblComment[2].Substring(nmAlgFblComment[2].IndexOf("="));
+                        strFBL = nmAlgFblComment[2].Substring(0, nmAlgFblComment[2].IndexOf("="));
                     }
                     else if (nmAlgFblComment[2].Contains(';'))
                     {
                         comment = nmAlgFblComment[2].Substring(nmAlgFblComment[2].IndexOf(";"));
+                        strFBL = nmAlgFblComment[2].Substring(0, nmAlgFblComment[2].IndexOf(";"));
+
                     }
+                    else
+                        strFBL = nmAlgFblComment[2];
+
+                    _ = byte.TryParse(Regex.Replace(strFBL, @"[^0-9]", ""), out FBL);
                 }
+                else
+                    _ = byte.TryParse(Regex.Replace(nmAlgFblComment[2], @"[^0-9]", ""), out FBL);
+
 
                 //AR1以降
 
@@ -341,15 +270,19 @@ namespace PMDVoices2SQLite
                     countLinesPlus++;
                     if (lines.Length > index + countLinesPlus + 1)
                     {
-                        string[]? nmAlgFblCommentNext = lines[index + countLinesPlus].Split(' ', StringSplitOptions.None);
+                        var nmAlgFblCommentNext = lines[index + countLinesPlus].Split(' ', StringSplitOptions.None).ToList();
+
+                        // 空要素を削除
+                        nmAlgFblCommentNext.RemoveAll(s => string.IsNullOrEmpty(s) || string.IsNullOrWhiteSpace(s));
+
                         if (nmAlgFblCommentNext[0].Contains(';')) continue;
-                        else if (nmAlgFblCommentNext.Length < 10) continue;
-                        else if (nmAlgFblCommentNext.Length > 12) continue;
+                        else if (nmAlgFblCommentNext.Count < 10) continue;
+                        else if (nmAlgFblCommentNext.Count > 12) continue;
 
                         switch (countModule)
                         {
                             case 0:
-                                if (nmAlgFblCommentNext.Length == 11)
+                                if (nmAlgFblCommentNext.Count == 11)
                                 {
                                     _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out DT2_1);
                                     _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[10], @"[^0-9]", ""), out AMS1);
@@ -367,7 +300,7 @@ namespace PMDVoices2SQLite
                                 _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[8], @"[^0-9]", ""), out DT1);
                                 break;
                             case 1:
-                                if (nmAlgFblCommentNext.Length == 11)
+                                if (nmAlgFblCommentNext.Count == 11)
                                 {
                                     _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out DT2_2);
                                     _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[10], @"[^0-9]", ""), out AMS2);
@@ -385,7 +318,7 @@ namespace PMDVoices2SQLite
                                 _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[8], @"[^0-9]", ""), out DT2);
                                 break;
                             case 2:
-                                if (nmAlgFblCommentNext.Length == 11)
+                                if (nmAlgFblCommentNext.Count == 11)
                                 {
                                     _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out DT2_3);
                                     _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[10], @"[^0-9]", ""), out AMS3);
@@ -403,7 +336,7 @@ namespace PMDVoices2SQLite
                                 _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[8], @"[^0-9]", ""), out DT3);
                                 break;
                             case 3:
-                                if (nmAlgFblCommentNext.Length == 11)
+                                if (nmAlgFblCommentNext.Count == 11)
                                 {
                                     _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[9], @"[^0-9]", ""), out DT2_4);
                                     _ = byte.TryParse(Regex.Replace(nmAlgFblCommentNext[10], @"[^0-9]", ""), out AMS4);
@@ -443,7 +376,7 @@ namespace PMDVoices2SQLite
                     DT1, DT2, DT3, DT4,
                     DT2_1, DT2_2, DT2_3, DT2_4,
                     AMS1, AMS2, AMS3, AMS4,
-                    "None", comment);
+                    fileName, comment);
                 voicesList.Add(voice);
             }
 
@@ -454,7 +387,7 @@ namespace PMDVoices2SQLite
 
 
         /// <summary>
-        /// 
+        /// 音色のオブジェクトをMML形式の文字列に変換
         /// </summary>
         /// <param name="voice"></param>
         /// <param name="is3digits"></param>
@@ -503,6 +436,66 @@ namespace PMDVoices2SQLite
 
         }
 
+
+
+        /// <summary>
+        /// 2つの音色の距離
+        /// </summary>
+        /// <param name="voice1">音色1</param>
+        /// <param name="voice2">音色2</param>
+        /// <returns>差(0以上)</returns>
+        public static int CoreDistance(this PMDVoice voice1,PMDVoice voice2)
+        {
+            int ret = 0;
+            if (voice2.ALG != voice1.ALG) ret += 10000000;
+            ret += Math.Abs(voice2.FBL - voice1.FBL) * 10;
+            ret += Math.Abs(voice2.AR1 - voice1.AR1);
+            ret += Math.Abs(voice2.AR2 - voice1.AR2);
+            ret += Math.Abs(voice2.AR3 - voice1.AR3);
+            ret += Math.Abs(voice2.AR4 - voice1.AR4);
+            ret += Math.Abs(voice2.DR1 - voice1.DR1);
+            ret += Math.Abs(voice2.DR2 - voice1.DR2);
+            ret += Math.Abs(voice2.DR3 - voice1.DR3);
+            ret += Math.Abs(voice2.DR4 - voice1.DR4);
+            ret += Math.Abs(voice2.SR1 - voice1.SR1);
+            ret += Math.Abs(voice2.SR2 - voice1.SR2);
+            ret += Math.Abs(voice2.SR3 - voice1.SR3);
+            ret += Math.Abs(voice2.SR4 - voice1.SR4);
+            ret += Math.Abs(voice2.RR1 - voice1.RR1);
+            ret += Math.Abs(voice2.RR2 - voice1.RR2);
+            ret += Math.Abs(voice2.RR3 - voice1.RR3);
+            ret += Math.Abs(voice2.RR4 - voice1.RR4);
+            ret += Math.Abs(voice2.SL1 - voice1.SL1);
+            ret += Math.Abs(voice2.SL2 - voice1.SL2);
+            ret += Math.Abs(voice2.SL3 - voice1.SL3);
+            ret += Math.Abs(voice2.SL4 - voice1.SL4);
+            ret += Math.Abs(voice2.TL1 - voice1.TL1);
+            ret += Math.Abs(voice2.TL2 - voice1.TL2);
+            ret += Math.Abs(voice2.TL3 - voice1.TL3);
+            ret += Math.Abs(voice2.TL4 - voice1.TL4);
+            ret += Math.Abs(voice2.KS1 - voice1.KS1);
+            ret += Math.Abs(voice2.KS2 - voice1.KS2);
+            ret += Math.Abs(voice2.KS3 - voice1.KS3);
+            ret += Math.Abs(voice2.KS4 - voice1.KS4);
+            ret += Math.Abs(voice2.ML1 - voice1.ML1) * 10;
+            ret += Math.Abs(voice2.ML2 - voice1.ML2) * 10;
+            ret += Math.Abs(voice2.ML3 - voice1.ML3) * 10;
+            ret += Math.Abs(voice2.ML4 - voice1.ML4) * 10;
+            ret += Math.Abs(voice2.DT1 - voice1.DT1);
+            ret += Math.Abs(voice2.DT2 - voice1.DT2);
+            ret += Math.Abs(voice2.DT3 - voice1.DT3);
+            ret += Math.Abs(voice2.DT4 - voice1.DT4);
+            ret += Math.Abs(voice2.DT2_1 - voice1.DT2_1);
+            ret += Math.Abs(voice2.DT2_2 - voice1.DT2_2);
+            ret += Math.Abs(voice2.DT2_3 - voice1.DT2_3);
+            ret += Math.Abs(voice2.DT2_4 - voice1.DT2_4);
+            ret += Math.Abs(voice2.AMS1 - voice1.AMS1);
+            ret += Math.Abs(voice2.AMS2 - voice1.AMS2);
+            ret += Math.Abs(voice2.AMS3 - voice1.AMS3);
+            ret += Math.Abs(voice2.AMS4 - voice1.AMS4);
+
+            return ret;
+        }
     }
 
 

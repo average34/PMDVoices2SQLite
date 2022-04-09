@@ -11,7 +11,12 @@ namespace PMDVoices2SQLite
     {
         public DbSet<PMDVoice>? Voices { get; set; }
 
-        public string DbPath { get; }
+        public string DbPath { get; set; }
+
+        public PMDVoicesContext(string dbPath)
+        {
+            DbPath = dbPath;
+        }
 
         public PMDVoicesContext()
         {

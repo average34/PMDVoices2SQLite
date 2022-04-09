@@ -35,6 +35,15 @@
             this.mMLファイルを保存SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.buttonMMLPath = new System.Windows.Forms.Button();
+            this.buttonDBPath = new System.Windows.Forms.Button();
+            this.buttonMML2SQLite = new System.Windows.Forms.Button();
+            this.buttonSQLite2MML = new System.Windows.Forms.Button();
+            this.buttonSearchDB = new System.Windows.Forms.Button();
+            this.comboBoxMMLPath = new System.Windows.Forms.ComboBox();
+            this.comboBoxDBPath = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,11 +104,111 @@
             this.終了XToolStripMenuItem.Text = "終了(&X)";
             this.終了XToolStripMenuItem.Click += new System.EventHandler(this.終了XToolStripMenuItem_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 67);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 20);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "MMLファイルパス";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 122);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(117, 20);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "SQLiteファイルパス";
+            // 
+            // buttonMMLPath
+            // 
+            this.buttonMMLPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonMMLPath.Location = new System.Drawing.Point(694, 62);
+            this.buttonMMLPath.Name = "buttonMMLPath";
+            this.buttonMMLPath.Size = new System.Drawing.Size(94, 29);
+            this.buttonMMLPath.TabIndex = 7;
+            this.buttonMMLPath.Text = "参照…";
+            this.buttonMMLPath.UseVisualStyleBackColor = true;
+            this.buttonMMLPath.Click += new System.EventHandler(this.buttonMMLPath_Click);
+            // 
+            // buttonDBPath
+            // 
+            this.buttonDBPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDBPath.Location = new System.Drawing.Point(694, 118);
+            this.buttonDBPath.Name = "buttonDBPath";
+            this.buttonDBPath.Size = new System.Drawing.Size(94, 29);
+            this.buttonDBPath.TabIndex = 8;
+            this.buttonDBPath.Text = "参照…";
+            this.buttonDBPath.UseVisualStyleBackColor = true;
+            this.buttonDBPath.Click += new System.EventHandler(this.buttonDBPath_Click);
+            // 
+            // buttonMML2SQLite
+            // 
+            this.buttonMML2SQLite.Location = new System.Drawing.Point(13, 188);
+            this.buttonMML2SQLite.Name = "buttonMML2SQLite";
+            this.buttonMML2SQLite.Size = new System.Drawing.Size(147, 29);
+            this.buttonMML2SQLite.TabIndex = 9;
+            this.buttonMML2SQLite.Text = "MML -> SQLite";
+            this.buttonMML2SQLite.UseVisualStyleBackColor = true;
+            this.buttonMML2SQLite.Click += new System.EventHandler(this.buttonMML2SQLite_Click);
+            // 
+            // buttonSQLite2MML
+            // 
+            this.buttonSQLite2MML.Location = new System.Drawing.Point(166, 188);
+            this.buttonSQLite2MML.Name = "buttonSQLite2MML";
+            this.buttonSQLite2MML.Size = new System.Drawing.Size(147, 29);
+            this.buttonSQLite2MML.TabIndex = 10;
+            this.buttonSQLite2MML.Text = "SQLite -> MML";
+            this.buttonSQLite2MML.UseVisualStyleBackColor = true;
+            this.buttonSQLite2MML.Click += new System.EventHandler(this.buttonSQLite2MML_Click);
+            // 
+            // buttonSearchDB
+            // 
+            this.buttonSearchDB.Location = new System.Drawing.Point(13, 223);
+            this.buttonSearchDB.Name = "buttonSearchDB";
+            this.buttonSearchDB.Size = new System.Drawing.Size(300, 29);
+            this.buttonSearchDB.TabIndex = 11;
+            this.buttonSearchDB.Text = "SQLiteDB内をMMLの音色でサーチ";
+            this.buttonSearchDB.UseVisualStyleBackColor = true;
+            this.buttonSearchDB.Click += new System.EventHandler(this.buttonSearchDB_Click);
+            // 
+            // comboBoxMMLPath
+            // 
+            this.comboBoxMMLPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxMMLPath.FormattingEnabled = true;
+            this.comboBoxMMLPath.Location = new System.Drawing.Point(140, 64);
+            this.comboBoxMMLPath.Name = "comboBoxMMLPath";
+            this.comboBoxMMLPath.Size = new System.Drawing.Size(548, 28);
+            this.comboBoxMMLPath.TabIndex = 12;
+            this.comboBoxMMLPath.SelectedIndexChanged += new System.EventHandler(this.comboBoxMMLPath_SelectedIndexChanged);
+            // 
+            // comboBoxDBPath
+            // 
+            this.comboBoxDBPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxDBPath.FormattingEnabled = true;
+            this.comboBoxDBPath.Location = new System.Drawing.Point(140, 119);
+            this.comboBoxDBPath.Name = "comboBoxDBPath";
+            this.comboBoxDBPath.Size = new System.Drawing.Size(548, 28);
+            this.comboBoxDBPath.TabIndex = 13;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.comboBoxDBPath);
+            this.Controls.Add(this.comboBoxMMLPath);
+            this.Controls.Add(this.buttonSearchDB);
+            this.Controls.Add(this.buttonSQLite2MML);
+            this.Controls.Add(this.buttonMML2SQLite);
+            this.Controls.Add(this.buttonDBPath);
+            this.Controls.Add(this.buttonMMLPath);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -122,5 +231,14 @@
         private ToolStripMenuItem mMLファイルを保存SToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem 終了XToolStripMenuItem;
+        private Label label1;
+        private Label label2;
+        private Button buttonMMLPath;
+        private Button buttonDBPath;
+        private Button buttonMML2SQLite;
+        private Button buttonSQLite2MML;
+        private Button buttonSearchDB;
+        private ComboBox comboBoxMMLPath;
+        private ComboBox comboBoxDBPath;
     }
 }

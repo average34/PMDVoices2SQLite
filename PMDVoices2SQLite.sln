@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMDVoices2SQLite", "PMDVoices2SQLite\PMDVoices2SQLite.csproj", "{63E023BF-27B8-4D0F-956D-EF1F5D89D2D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMDVoices2SQLiteTests", "PMDVoices2SQLiteTests\PMDVoices2SQLiteTests.csproj", "{F27868A4-8A39-4E42-BF3F-2120BA6CCD7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMDVoices2SQLiteTests", "PMDVoices2SQLiteTests\PMDVoices2SQLiteTests.csproj", "{F27868A4-8A39-4E42-BF3F-2120BA6CCD7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
